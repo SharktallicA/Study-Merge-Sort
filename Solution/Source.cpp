@@ -5,6 +5,8 @@ using namespace std;
 
 class List
 {
+	//purpose: dynamic array 'safety net' class
+
 private:
 	int intSize;
 	int* intArray = nullptr;
@@ -20,8 +22,10 @@ public:
 
 List* merge(List* lstLeft, List* lstRight)
 {
+	//purpose: combines two lists together with sorted numbers
+
 	List* lstResult = new List(lstLeft->size() * 2);
-	int intCount = 0, intLeft = 0, intRight = 0;
+	int intCount = 0, intLeft = 0, intRight = 0; //steppers
 
 	while (intLeft < lstLeft->size() && intRight < lstRight->size())
 	{
@@ -57,7 +61,9 @@ List* merge(List* lstLeft, List* lstRight)
 }
 List* mergeSort(List* lstNumbers)
 {
-	if (lstNumbers->size() == 1)
+	//purpose: executes recursive sorting algorithm
+
+	if (lstNumbers->size() == 1) //if list is at smallest size, don't continue
 		return lstNumbers;
 
 	int intMiddle = lstNumbers->size() / 2;
@@ -65,20 +71,23 @@ List* mergeSort(List* lstNumbers)
 	List* lstLeft = new List(intMiddle);
 	List* lstRight = new List(intMiddle);
 
-	for (int intIndex = 0; intIndex < intMiddle; intIndex++)
+	for (int intIndex = 0; intIndex < intMiddle; intIndex++) //iterate and split list into two separate lists containing one half each
 	{
 		lstLeft->set(intIndex, lstNumbers->get(intIndex));
 		lstRight->set(intIndex, lstNumbers->get(intIndex + intMiddle));
 	}
 
+	//recurse
 	lstLeft = mergeSort(lstLeft);
 	lstRight = mergeSort(lstRight);
 
-	return merge(lstLeft, lstRight);
+	return merge(lstLeft, lstRight); //return and merge
 }
 
 bool program()
 {
+	//purpose: executes core code and loop
+
 	//input size of list
 	int intInput = 0;
 	cout << "MergeSort Test | Khalid Ali" << endl;
@@ -123,6 +132,6 @@ bool program()
 }
 int main(void)
 {
-	while (program());
+	while (program()); //keeps program running as per user
 	return 0;
 }
